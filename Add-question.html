@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<?php $session_value=(isset($_SESSION['user_type']))?$_SESSION['user_type']:''; ?>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="FroontDoor">
+    <link rel="shortcut icon" href="assets/images/favicon_1.ico">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <title>Front Door - Superadmin</title>
+   
+    
+</head>
+
+
+<body class="fixed-left">
+
+    <!-- Begin page -->
+    <div id="wrapper">
+
+        <!-- Top Bar Start -->
+        <?php include 'common/navbar.php';?>
+        <!-- Top Bar End -->
+
+
+        <!-- ========== Left Sidebar Start ========== -->
+
+        <?php include 'common/sidebar.php';?>
+        <!-- Left Sidebar End -->
+
+
+
+
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="content-page">
+            <!-- Start content -->
+            <div class="content">
+
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="page-title-box">
+                                <h4 class="page-title">Add Questionnaire</h4>
+                                <ol class="breadcrumb float-right">
+                                    <li class="breadcrumb-item"><a href="dashboard.php">Dashbaord</a></li>
+                                    <li class="breadcrumb-item active">Add Questionnaire</li>
+                                </ol>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card-box">
+                                <div class="col-md-12 col-md-offset-6">
+                                    <?php
+                                        if ($this->session->flashdata('feedback')!='')
+                                        {
+                                        echo'<div class="alert alert-info alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                        '.$this->session->flashdata('feedback').'</div>';
+                                        }
+                                    ?>
+                                </div>
+                                <form action="<?php echo site_url()?>Frontdoor/add_questions" method="post" data-parsley-validate="">
+                                    <div class="page">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="quesName">Questionnaire Name </label>
+                                                    <input type="text" name="quesName" parsley-trigger="change" required placeholder="Questionnaire Name" class="form-control" id="quesName">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div id="hideassignorg" style="display:none" class="form-group">
+                                                    <label>Assign Orgnization</label>
+                                                    <select class=" form-control select2 " placeholder="Select" name="org_id" id="org_id">
+                                                        <option>
+                                                            <?php 
+                                                    foreach($organization as $row)
+                                                    {          
+                                                        echo '<option value="'.$row->id.'">'.$row->org_name.'</option>';
+                                                    }
+                                                ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Status</label>
+                                                    <select class="form-control" name="status" id="status">
+                                                        <option>Select status</option>
+                                                        <option>Active</option>
+                                                        <option>Inactive</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label>Questions for program eligibility</label>
+                                        </div>
+                                        <div id="question-container">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <textarea type="text" name="que1[]" parsley-trigger="change" placeholder="Question 1" class="form-control m-b-15" id="que1" rows="2"></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <select class="form-control select2 parameter_name" id="parameter_name1" name="parameter_name[]"></select>
+                                                    </div>
+                                                    <div class="form-group">
+
+                                                        <select multiple="multiple" class="form-control select2 que_answer1" id="que_answer1" name="que_answer1[]"></select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div><label>Answer Type</label></div>
+                                                        <div class="radio radio-primary form-check-inline">
+                                                            <input type="radio" name="answer_type0" id="yes/no0" value="Yes/No">
+                                                            <label for="yes/no0">Yes/No</label>
+                                                        </div>
+                                                        <div class="radio radio-primary form-check-inline">
+                                                            <input type="radio" name="answer_type0" id="multiplechoice0" value="Multiple Choice">
+                                                            <label for="multiplechoice0">Multiple Choice</label>
+                                                        </div>
+                                                        <div class="radio radio-primary form-check-inline">
+                                                            <input type="radio" name="answer_type0" id="input0" value="Input">
+                                                            <label for="input0">Input</label>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <textarea type="text" name="que1[]" parsley-trigger="change" placeholder="Question 2" class="form-control m-b-15" id="que1" rows="2"></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <select class="form-control select2 parameter_name" id="parameter_name2" name="parameter_name[]"></select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <select multiple="multiple" class="form-control select2 que_answer1" placeholder="Select" id="que_answer2" name="que_answer2[]"></select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div><label>Answer Type</label></div>
+                                                        <div class="radio radio-primary form-check-inline">
+                                                            <input type="radio" name="answer_type1" id="yes/no1" value="Yes/No">
+                                                            <label for="yes/no4">Yes/No</label>
+                                                        </div>
+                                                        <div class="radio radio-primary form-check-inline">
+                                                            <input type="radio" name="answer_type1" id="multiplechoice1" value="Multiple Choice">
+                                                            <label for="multiplechoice4">Multiple Choice</label>
+                                                        </div>
+                                                        <div class="radio radio-primary form-check-inline">
+                                                            <input type="radio" name="answer_type1" id="input1" value="Input">
+                                                            <label for="input4">Input</label>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <textarea type="text" name="que1[]" parsley-trigger="change" placeholder="Question 3" class="form-control m-b-15" id="que1" rows="2"></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <select class="form-control select2 parameter_name" id="parameter_name3" name="parameter_name[]"></select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <select multiple="multiple" class="form-control select2 que_answer1" placeholder="Select" id="que_answer3" name="que_answer3[]"></select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div><label>Answer Type</label></div>
+                                                        <div class="radio radio-primary form-check-inline">
+                                                            <input type="radio" name="answer_type2" id="yes/no2" value="Yes/No">
+                                                            <label for="yes/no2">Yes/No</label>
+                                                        </div>
+                                                        <div class="radio radio-primary form-check-inline">
+                                                            <input type="radio" name="answer_type2" id="multiplechoice2" value="Multiple Choice">
+                                                            <label for="multiplechoice2">Multiple Choice</label>
+                                                        </div>
+                                                        <div class="radio radio-primary form-check-inline">
+                                                            <input type="radio" name="answer_type2" id="input2" value="Input">
+                                                            <label for="input2">Input</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <small class="form-text"><a href="javascript:void(0);" id="addquestion1">Add More</a></small>
+                                                    </div>
+                                                </div>
+                                                <div class="addquestion">
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group text-right m-b-0">
+                                                    <button class="btn btn-primary waves-effect waves-light" type="submit">Submit</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="loading"></div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- end card-box -->
+                    </div>
+                    <!-- end col -->
+
+
+                </div>
+
+                
+                <!-- end container -->
+
+            </div>
+
+            <!-- end content -->
+
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Right content here -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- END wrapper -->
+
+    
+    <script>
+        var resizefunc = [];
+
+    </script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            var max_fields = 32; //maximum input boxes allowed
+            var wrapper = $(".addquestion"); //Fields wrapper
+            var add_button = $("#addquestion1"); //Add button ID
+
+            var x = 3; //initlal text box count
+            $(add_button).click(function(e) { //on add input button click
+                e.preventDefault();
+                if (x < max_fields) { //max input box allowed
+
+                    x++; //text box increment
+                    $(wrapper).append('<div class="row"><div class="col-md-12"></div>' +
+                        '<div class="col-md-4"><div class="form-group"><textarea type="text" name="que1[]" parsley-trigger="change" placeholder="Question ' + x + '" class="form-control m-b-15" id="que1" rows="2"></textarea></div>' +
+                        '<div class="form-group"><select class="form-control select2 parameter_name" id="parameter_name' + x + '" name="parameter_name[]"></select></div>' +
+                        '<div class="form-group"><select multiple="multiple" class="form-control select2 que_answer1" id="que_answer' + x + '" name="que_answer' + x + '[]"></select></div>' +
+                        '<div class="form-group"><div><label>Answer Type</label></div><div class="radio radio-primary form-check-inline"><input type="radio" name="answer_type0" id="yes/no0" value="Yes/No"><label for="yes/no0">Yes/No</label></div>' +
+                        '<div class="radio radio-primary form-check-inline"><input type="radio" name="answer_type0" id="multiplechoice0" value="Multiple Choice"><label for="multiplechoice0">Multiple Choice</label></div>' +
+                        '<div class="radio radio-primary form-check-inline"><input type="radio" name="answer_type0" id="input0" value="Input"><label for="input0">Input</label></div></div></div>' +
+                        '<div class="col-md-4"><div class="form-group"><textarea type="text" name="que1[]" parsley-trigger="change" placeholder="Question ' + x + '" class="form-control m-b-15" id="que1" rows="2"></textarea></div><div class="form-group"><select class="form-control select2 parameter_name" id="parameter_name1" name="parameter_name[]"></select></div>' +
+                        '<div class="form-group"><select multiple="multiple" class="form-control select2 que_answer1" id="que_answer1" name="que_answer1[]"></select></div> <div class="form-group"><div><label>Answer Type</label></div><div class="radio radio-primary form-check-inline"><input type="radio" name="answer_type0" id="yes/no0" value="Yes/No"><label for="yes/no0">Yes/No</label></div><div class="radio radio-primary form-check-inline">' +
+                        '<input type="radio" name="answer_type0" id="multiplechoice0" value="Multiple Choice"><label for="multiplechoice0">Multiple Choice</label></div><div class="radio radio-primary form-check-inline"><input type="radio" name="answer_type0" id="input0" value="Input"><label for="input0">Input</label></div></div></div><div class="col-md-4"><div class="form-group"><textarea type="text" name="que1[]" parsley-trigger="change" placeholder="Question ' + x + '" class="form-control m-b-15" id="que1" rows="2"></textarea></div>' +
+                        '<div class="form-group"><select class="form-control select2 parameter_name" id="parameter_name1" name="parameter_name[]"></select></div><div class="form-group"><select multiple="multiple" class="form-control select2 que_answer1" id="que_answer1" name="que_answer1[]"></select></div> <div class="form-group"><div><label>Answer Type</label></div><div class="radio radio-primary form-check-inline"><input type="radio" name="answer_type0" id="yes/no0" value="Yes/No"><label for="yes/no0">Yes/No</label></div>' +
+                        '<div class="radio radio-primary form-check-inline"><input type="radio" name="answer_type0" id="multiplechoice0" value="Multiple Choice"><label for="multiplechoice0">Multiple Choice</label></div><div class="radio radio-primary form-check-inline"><input type="radio" name="answer_type0" id="input0" value="Input"><label for="input0">Input</label></div></div></div><a href="#" class="remove-camera">remove</a>');
+
+                }
+            });
+
+            $(wrapper).on("click", ".remove-camera", function(e) { //user click on remove text
+                e.preventDefault();
+                $(this).parent('div').remove();
+
+                // $(".camerasCounter").each(function(elm) {
+                //     var count = elm + 1
+                //     $(this).attr("name", "Camera " + count);
+                //     $(this).attr("value", "Camera " + count);
+                //     x = elm + 1;
+                // });
+            })
+        });
+
+    </script>
+
+</body>
+
+</html>

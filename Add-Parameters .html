@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<?php $session_value=(isset($_SESSION['user_type']))?$_SESSION['user_type']:''; ?>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="FroontDoor">
+    <link rel="shortcut icon" href="assets/images/favicon_1.ico">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <title>Front Door - Superadmin</title>
+
+
+    <style>
+        /*.page {
+            display: none;
+            padding: 0 0.5em;
+        }*/
+
+        #loading {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(192, 192, 192, 0.5);
+            background-image: url("https://i.stack.imgur.com/MnyxU.gif");
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+    </style>
+</head>
+
+
+<body class="fixed-left">
+
+    <!-- Begin page -->
+    <div id="wrapper">
+
+
+
+
+
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="content-page">
+            <!-- Start content -->
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="page-title-box">
+                                <h4 class="page-title">Create Parameters</h4>
+                                <ol class="breadcrumb float-right">
+                                    <li class="breadcrumb-item"><a href="dashboard.php">Dashbaord</a></li>
+                                    <li class="breadcrumb-item active">Add Parameters</li>
+                                </ol>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card-box">
+
+                                <form action="<?php echo site_url()?>Frontdoor/add_parameters" method="Post" data-parsley-validate="">
+                                    <div class="page">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Parameters set name</label>
+                                                    <input type="text" id="parameter_name" name="parameter_name" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div id="hideassignorg" style="display:none" class="form-group">
+                                                    <label>Assign Orgnization</label>
+                                                    <select multiple="multiple" class="select2" id="org_id" name="org_id">
+                                                    <option>A</option>
+                                                
+                                                </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Status</label>
+                                                    <select class="form-control" id="status" name="status">
+                                                    <option>Select status</option>
+                                                    <option>Active</option>
+                                                    <option>Inactive</option>
+                                                </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="">
+                                            <div class="row addpara1">
+                                                <div class="col-md-12"><label>Create Parameters</label></div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <textarea type="text" name="parameter[]" parsley-trigger="change" placeholder="Parameter" class="form-control m-b-10" id="parameter" rows="2"></textarea>
+                                                        <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans1[]" id="para_ans1">
+                                                        <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans1[]" id="para_ans2">
+                                                        <small class="form-text"><a href="javascript:void(0);" id="addparameter">Parameter Value</a></small>
+                                                    </div>
+                                                    <div id="addparametervalue">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <textarea type="text" name="parameter[]" parsley-trigger="change" placeholder="Parameter" class="form-control m-b-10" id="parameter" rows="2"></textarea>
+                                                        <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans2[]" id="paraans1">
+                                                        <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans2[]" id="paraans2">
+                                                        <small class="form-text"><a href="javascript:void(0);" id="addparameter1">Parameter Value</a></small>
+                                                    </div>
+                                                    <div id="addparametervalue1">
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <textarea type="text" name="parameter[]" parsley-trigger="change" placeholder="Parameter 3" class="form-control m-b-10" id="parameter" rows="2"></textarea>
+                                                        <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans3[]" id="pans1">
+                                                        <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans3[]" id="pans2">
+                                                        <small class="form-text"><a href="javascript:void(0);" id="addparameter2">Parameter Value</a></small>
+                                                    </div>
+                                                    <div id="addparametervalue2">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <small class="form-text"><a href="javascript:void(0);" id="addpara">Add More</a></small>
+                                                    </div>
+                                                    <!-- <div class="addpara">
+                                             </div> -->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group text-right m-b-0">
+                                                <button class="btn btn-primary waves-effect waves-light" type="submit">Submit</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div id="loading"></div>
+
+                                </form>
+                            </div>
+                            <!-- end card-box -->
+                        </div>
+                        <!-- end col -->
+                    </div>
+
+
+                </div>
+                <!-- end container -->
+            </div>
+            <!-- end content -->
+
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Right content here -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- END wrapper -->
+
+
+
+    <script>
+        var resizefunc = [];
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script>
+        /*$(function() {
+                                    var count = 0;
+                                    $('#append').click(function() {
+                                        $('#parent').append('<div id="first' + count + '">text</div>');
+
+                                        count++;
+                                    });
+                                });*/
+        var counter = 0;
+        $("#addparameter0").click(function() {
+            counter++;
+            console.log(counter)
+        });
+
+    </script>
+
+
+    <script>
+        var count = 3;
+        $(document).on('click', '#addparameter', function() {
+            var appendTxt = "<div class='form-group'><input type='text' class='form-control m-b-10' placeholder='Parameter Value' name='para_ans1[]' id='para_ans" + count + "'><small class='form-text'><a href='javascript:void(0);'id='removemanager'>Remove</a></small></div>"
+            $("#addparametervalue").append(appendTxt);
+            count++;
+            console.log(count)
+        });
+
+        $(document).on('click', '#removemanager', function(e) {
+            $(this).closest("div").remove();
+        });
+
+    </script>
+    <script>
+        var counter=3
+        $(document).on('click', '#addparameter1', function() {
+            var appendTxt = "<div class='form-group'><input type='text' class='form-control m-b-10' placeholder='Parameter Value' name='para_ans2[]' id='paraans"+counter+"'><small class='form-text'><a href='javascript:void(0);'id='removemanager'>Remove</a></small></div>"
+            $("#addparametervalue1").append(appendTxt);
+            counter++;
+        });
+
+        $(document).on('click', '#removemanager', function(e) {
+            $(this).closest("div").remove();
+        });
+
+    </script>
+    <script>
+        var counters=3
+        $(document).on('click', '#addparameter2', function() {
+            var appendTxt = "<div class='form-group'><input type='text' class='form-control m-b-10' placeholder='Parameter Value' name='para_ans3[]' id='pans"+counters+"'> <small class='form-text'><a href='javascript:void(0);'id='removemanager'>Remove</a></small></div>"
+            counters++;
+            $("#addparametervalue2").append(appendTxt);
+        });
+
+        $(document).on('click', '#removemanager', function(e) {
+            $(this).closest("div").remove();
+        });
+
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            var max_fields = 60; //maximum input boxes allowed
+            var wrapper = $(".addpara1"); //Fields wrapper
+            var add_button = $("#addpara"); //Add button ID
+
+            var x = 1; //initlal text box count
+            $(add_button).click(function(e) { //on add input button click
+                e.preventDefault();
+                if (x < max_fields) { //max input box allowed
+                    x++; //text box increment
+                    //add input box
+                    $(wrapper).append('<div class="row"> <div class="col-md-4"> <div class="form-group"><textarea type="text" name="parameter[]" parsley-trigger="change" placeholder="Parameter' + x + '" class="form-control m-b-10" id="parameter" rows="2"></textarea><input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans' + x + '[]" id="para_ans' + x + '"><input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans' + x + '[]" id="para_ans' + x + '"> <small class="form-text"><a href="javascript:void(0);" id="addparameter' + x + '">Parameter Value</a></small> <div class="addparametervalue' + x + '"></div></div></div><div class="col-md-4"> <div class="form-group"><textarea type="text" name="parameter[]" parsley-trigger="change" placeholder="Parameter' + x + '" class="form-control m-b-10" id="parameter" rows="2"></textarea><input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans' + x + '[]" id="para_ans5' + x + '"><input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans' + x + '[]" id="para_ans' + x + '"> <small class="form-text"><a href="javascript:void(0);" id="addparameter' + x + '">Parameter Value</a></small> </div><div class="addparametervalue' + x + '"></div></div><div class="col-md-4"> <div class="form-group"><textarea type="text" name="parameter[]" parsley-trigger="change" placeholder="Parameter' + x + '" class="form-control m-b-10" id="parameter" rows="2"></textarea><input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans' + x + '[]" id="para_ans' + x + '"><input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans' + x + '[]" id="para_ans' + x + '"> <small class="form-text"><a href="javascript:void(0);" id="addparameter' + x + '">Parameter Value</a></small> <div class="addparametervalue' + x + '"></div></div></div><a href="#" class="remove-camera">remove</a></div>');
+                }
+            });
+
+            $(wrapper).on("click", ".remove-camera", function(e) { //user click on remove text
+                e.preventDefault();
+                $(this).parent('div').remove();
+
+                $(".camerasCounter").each(function(elm) {
+                    var count = elm + 1
+                    $(this).attr("name", "Camera " + count);
+                    $(this).attr("value", "Camera " + count);
+                    x = elm + 1;
+                });
+            })
+        });
+
+    </script>
+
+
+
+
+    <script>
+        function onReady(callback) {
+            var intervalId = window.setInterval(function() {
+                if (document.getElementsByTagName('body')[0] !== undefined) {
+                    window.clearInterval(intervalId);
+                    callback.call(this);
+                }
+            }, 1000);
+        }
+
+        function setVisible(selector, visible) {
+            document.querySelector(selector).style.display = visible ? 'block' : 'none';
+        }
+
+        onReady(function() {
+            setVisible('.page', true);
+            setVisible('#loading', false);
+        });
+
+    </script>
+
+
+</body>
+
+</html>
+<!--jjjjjj-->
+
+<!--<div class="row">
+    <div class="col-md-4">
+        <div class="form-group"><textarea type="text" name="parameter[]" parsley-trigger="change" placeholder="Parameter' + x + '" class="form-control m-b-10" id="parameter" rows="2"></textarea><input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans' + x + '[]" id="para_ans' + x + '"><input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans' + x + '[]" id="para_ans' + x + '">
+            <small class="form-text"><a href="javascript:void(0);" id="addparameter' + x + '">Parameter Value</a></small>
+            <div class="addparametervalue' + x + '"></div>
+        </div>
+
+    </div>
+    <div class="col-md-4">
+        <div class="form-group"><textarea type="text" name="parameter[]" parsley-trigger="change" placeholder="Parameter' + x + '" class="form-control m-b-10" id="parameter" rows="2"></textarea><input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans' + x + '[]" id="para_ans5' + x + '"><input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans' + x + '[]" id="para_ans' + x + '">
+            <small class="form-text"><a href="javascript:void(0);" id="addparameter' + x + '">Parameter Value</a></small>
+        </div>
+        <div class="addparametervalue' + x + '"></div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="form-group"><textarea type="text" name="parameter[]" parsley-trigger="change" placeholder="Parameter' + x + '" class="form-control m-b-10" id="parameter" rows="2"></textarea><input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans' + x + '[]" id="para_ans' + x + '"><input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans' + x + '[]" id="para_ans' + x + '">
+            <small class="form-text"><a href="javascript:void(0);" id="addparameter' + x + '">Parameter Value</a></small>
+            <div class="addparametervalue' + x + '"></div>
+        </div>
+    </div><a href="#" class="remove-camera">remove</a>
+</div>-->
