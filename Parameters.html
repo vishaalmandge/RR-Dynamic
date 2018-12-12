@@ -1,0 +1,1210 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="FroontDoor">
+    <link rel="shortcut icon" href="assets/images/favicon_1.ico">
+    <title>Front Door - Superadmin</title>
+    <link href="plugins/switchery/switchery.min.css" rel="stylesheet" />
+
+<link href="http://referrouter.com/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="http://referrouter.com/assets/css/icons.css" rel="stylesheet" type="text/css">
+<!--<link href="plugins/select2/select2.css" rel="stylesheet" type="text/css" />-->
+<link href="http://referrouter.com/plugins/choosen/chosen.min.css" rel="stylesheet" type="text/css" />
+<link href="http://referrouter.com/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/b-1.5.2/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/r-2.2.2/datatables.min.css"/>
+<link href="http://referrouter.com/assets/css/sweetalert.css" rel="stylesheet" type="text/css">
+
+<link href="http://referrouter.com/assets/css/style.css" rel="stylesheet" type="text/css">
+
+
+    
+    <style>
+        .page {
+            display: none;
+            padding: 0 0.5em;
+        }
+        #loading {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(192, 192, 192, 0.5);
+            /* background-image: url("https://i.stack.imgur.com/MnyxU.gif"); */
+            background-image: url('assets/images/spinner.gif');
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+    </style>
+</head>
+
+
+<body class="fixed-left">
+
+    <!-- Begin page -->
+    <div id="wrapper">
+
+        <!-- Top Bar Start -->
+        <!-- $_SESSION['user_type'] -->
+<div class="topbar">
+    <!-- LOGO -->
+    <div class="topbar-left">
+        <div class="text-center">
+            <a href="http://referrouter.com/Frontdoor/web_login" class="logo"><span>referrouter</span></a>
+            
+        </div>
+    </div>
+    <!-- Button mobile view to collapse sidebar menu -->
+    <nav class="navbar-custom">
+        <ul class="list-inline float-right mb-0">
+            <li class="list-inline-item notification-list hide-phone">
+                <a class="nav-link waves-light waves-effect" href="#" id="btn-fullscreen"><i class="mdi mdi-crop-free noti-icon"></i></a>
+            </li>
+            <!--<li class="list-inline-item dropdown notification-list">-->
+            <!--    <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">-->
+            <!--<i class="mdi mdi-bell noti-icon"></i>-->
+            <!--<span class="badge badge-pink noti-icon-badge">4</span>-->
+            <!--</a>-->
+            <!--    <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-menu-lg" aria-labelledby="Preview">-->
+                    <!-- item-->
+            <!--        <div class="dropdown-item noti-title">-->
+            <!--            <h5 class="font-16"><span class="badge badge-danger float-right">5</span>Notification</h5>-->
+            <!--        </div>-->
+                    <!-- item-->
+            <!--        <a href="javascript:void(0);" class="dropdown-item notify-item">-->
+            <!--            <div class="notify-icon bg-success"><i class="mdi mdi-comment-account"></i></div>-->
+            <!--            <p class="notify-details">Robert S. Taylor commented on Admin<small class="text-muted">1 min ago</small></p>-->
+            <!--        </a>-->
+                    <!-- item-->
+            <!--        <a href="javascript:void(0);" class="dropdown-item notify-item">-->
+            <!--            <div class="notify-icon bg-info"><i class="mdi mdi-account"></i></div>-->
+            <!--            <p class="notify-details">New user registered.<small class="text-muted">1 min ago</small></p>-->
+            <!--        </a>-->
+                    <!-- item-->
+            <!--        <a href="javascript:void(0);" class="dropdown-item notify-item">-->
+            <!--            <div class="notify-icon bg-danger"><i class="mdi mdi-airplane"></i></div>-->
+            <!--            <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">1 min ago</small></p>-->
+            <!--        </a>-->
+                    <!-- All-->
+            <!--        <a href="javascript:void(0);" class="dropdown-item notify-item notify-all">-->
+            <!--   View All-->
+            <!--   </a>-->
+            <!--    </div>-->
+            <!--</li>-->
+            <li class="list-inline-item dropdown notification-list">
+                <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+            <img src="http://referrouter.com/assets/images/user.jpg" alt="user" class="rounded-circle">
+            </a>
+                <div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">
+                    <!-- item-->
+                    <!--<div class="dropdown-item noti-title">-->
+                    <!--    <h5 class="text-overflow"><small>Welcome ! John</small> </h5>-->
+                    <!--</div>-->
+                    <!-- item-->
+                 <a id="superadmin_profile" style="display:none" href="javascript:void(0);" class="dropdown-item notify-item">
+               <i class="mdi mdi-account-star-variant"></i> <span>Profile</span>
+               </a>   
+                <a id="org_profile" style="display:none" href="http://referrouter.com/org_profile" class="dropdown-item notify-item">                   
+                      <i class="mdi mdi-account-star-variant"></i> <span>Profile</span>
+                </a>
+                 <a id="staff_profile" style="display:none" href="http://referrouter.com/get_staff_profile" class="dropdown-item notify-item">
+               <i class="mdi mdi-account-star-variant"></i> <span>Profile</span>
+               </a>
+                    <!-- item-->
+                    <a href="http://referrouter.com/reset_password" class="dropdown-item notify-item">
+               <i class="mdi mdi-settings"></i> <span>Settings</span>
+               
+               </a>
+
+
+                    <!-- item-->
+                    <a href="http://referrouter.com/logout" class="dropdown-item notify-item">
+               <i class="mdi mdi-logout"></i> <span>Logout</span>
+               </a>
+                </div>
+            </li>
+        </ul>
+        <ul class="list-inline menu-left mb-0">
+            <li class="float-left">
+                <button class="button-menu-mobile open-left waves-light waves-effect">
+            <i class="mdi mdi-menu"></i>
+            </button>
+            </li>
+        </ul>
+    </nav>
+</div>
+<script type="text/javascript">
+
+    var user='Superadmin';
+    //alert(user);
+    if(user=='Superadmin')
+        {
+            document.querySelector("[href='javascript:void(0);']").style.display = 'block';
+        }
+        else if(user=='Admin'){
+             document.querySelector("[href='http://referrouter.com/org_profile']").style.display = 'block';
+        }
+        else if(user=='Staff')
+        {
+            document.querySelector("[href='http://referrouter.com/get_staff_profile']").style.display = 'block';
+        }
+        else{}
+</script>        <!-- Top Bar End -->
+
+
+        <!-- ========== Left Sidebar Start ========== -->
+
+        
+<div class="left side-menu">
+    <div class="sidebar-inner slimscrollleft">
+        <!--- Divider -->
+        <div id="sidebar-menu">
+            <ul>
+                <li>
+            <!--profile image code-->
+            <div class="profile-img">
+            <img src='http://referrouter.com/assets/images/user.jpg' width=50px; height=50px;>            
+
+            </div>
+            <!--profile image code end-->
+                </li>
+                
+                <li>
+                    <a href="http://referrouter.com/dashboard" class="waves-effect waves-primary"><i class="mdi mdi-view-dashboard md"></i><span> Dashboard</span></a>
+
+                </li>
+                <li id="hideorg" style="display:none" class="has_sub">
+                    <a href="javascript:void(0);" class="waves-effect waves-primary"><i class="mdi mdi-home-map-marker md"></i> <span> Organization </span>
+                        <span class="menu-arrow"></span></a>
+                    <ul class="list-unstyled">
+                        <li id="hideaddorg" style="display:none"><a href="http://referrouter.com/get_organization"><i class="mdi mdi-radiobox-blank"></i>Add Organization</a></li>
+                        <li id="hideaddstaff" style="display:none"><a href="http://referrouter.com/get_staff"><i class="mdi mdi-radiobox-blank"></i>Add Staff</a></li>
+                    </ul>
+                </li>
+                <li id="hideaddparameter" style="display:none">
+                    <a href="http://referrouter.com/get_parameters" class="waves-effect waves-primary"><i class="mdi mdi-comment-question-outline md"></i><span> Create Parameters </span></a>
+                </li>
+                <li id="hideaddquestion" style="display:none">
+                    <a href="http://referrouter.com/get_questions" class="waves-effect waves-primary"><i class="mdi mdi-comment-question-outline md"></i><span> Create Questionnaire </span></a>
+                </li>
+
+                <li id="hideaddprogram" style="display:none">
+                    <a href="http://referrouter.com/get_programs" class="waves-effect waves-primary"><i class="mdi mdi-comment-question-outline md"></i><span> Create Program </span></a>
+                </li>
+                 
+                 <li>
+                    <a href="http://referrouter.com/get_candidate" class="waves-effect waves-primary"><i class="mdi mdi-comment-question-outline md"></i><span> Add Candidate </span></a>
+                </li>
+               <li id="userlist" style="display:none">
+                    <a href="http://referrouter.com/get_user" class="waves-effect waves-primary"><i class="mdi mdi-comment-question-outline md"></i><span> User List </span></a>
+                </li>
+                <li id="batch" style="display:none">
+                    <a href="http://referrouter.com/create_batch" class="waves-effect waves-primary"><i class="mdi mdi-comment-question-outline md"></i><span>Batch </span></a>
+                </li>
+                 <li id="view_candidate" style="display:none">
+                    <a href="http://referrouter.com/view_programcandidate" class="waves-effect waves-primary"><i class="mdi mdi-comment-question-outline md"></i><span>View Program candidate </span></a>
+                </li>
+                <li>
+                    <a href="http://referrouter.com/search_candidate" class="waves-effect waves-primary"><i class="mdi mdi-comment-question-outline md"></i><span> Search Candidate </span></a>
+                </li>
+                <!--<li>-->
+                <!--    <a href="javascript:void(0)" class="waves-effect waves-primary"><i class="mdi mdi-chart-bar md"></i><span> Reports </span></a>-->
+                <!--</li>-->
+               
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    var user='Superadmin';
+    
+    
+        if(user=='Superadmin')
+        {
+            document.getElementById('hideaddorg').style.display = 'inline';
+            document.getElementById('hideaddstaff').style.display = 'inline';
+            document.getElementById('hideaddprogram').style.display = 'inline';
+            document.getElementById('hideaddparameter').style.display = 'inline';
+            document.getElementById('hideaddquestion').style.display = 'inline';
+            document.getElementById('hideorg').style.display = 'inline';
+            document.getElementById('userlist').style.display = 'inline';
+            document.getElementById('batch').style.display = 'inline';
+           
+        }
+        else if(user=='Admin'){
+            //document.getElementById('hideaddorg').style.display = 'inline';
+            document.getElementById('hideaddstaff').style.display = 'inline';
+            document.getElementById('hideaddprogram').style.display = 'inline';
+            document.getElementById('hideaddparameter').style.display = 'inline';
+            document.getElementById('hideaddquestion').style.display = 'inline';
+            document.getElementById('hideorg').style.display = 'inline';
+            document.getElementById('userlist').style.display = 'inline';
+            document.getElementById('batch').style.display = 'inline';
+            
+        }
+         else if(user=='ProgramManager'){
+            //document.getElementById('hideaddorg').style.display = 'inline';
+            document.getElementById('view_candidate').style.display = 'inline';
+            
+        }
+        else
+        {
+            
+        }
+       
+    
+    </script>        <!-- Left Sidebar End -->
+
+
+
+
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="content-page">
+            <!-- Start content -->
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="page-title-box">
+                                <h4 class="page-title">Create Parameters</h4>
+                                <ol class="breadcrumb float-right">
+                                    <li class="breadcrumb-item"><a href="http://referrouter.com/dashboard">Dashbaord</a></li>
+                                    <li class="breadcrumb-item active">Add Parameters</li>
+                                </ol>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card-box">
+                            <div class="col-md-12 col-md-offset-6">
+                                                                    </div>
+                                <form action="http://referrouter.com/Frontdoor/add_parameters" method="Post" data-parsley-validate="">
+                                 <div class="page">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Parameters Set Name</label>
+                                                <input type="text" id="parameter_name" name="parameter_name" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                        <div id="hideassignorg" style="display:none" class="form-group">
+                                                <label>Assign Orgnization</label>
+                                                <select class="form-control chosen-select"  data-placeholder="Select Organization" id="org_id" name="org_id">
+                                                <option value=""></option>
+                                                <option value="11">Life Line Org</option><option value="12">Test Org1</option>      
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Status</label>
+                                                <select class="form-control chosen-select" required data-placeholder="Select Status" id="status" name="status">
+                                                    <option value=""></option>
+                                                    <option>Active</option>
+                                                    <option>Inactive</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12"><label>Create Parameters</label></div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <textarea type="text" name="parameter[]" parsley-trigger="change" required placeholder="Parameter" class="form-control m-b-10" id="parameter" rows="2"></textarea>
+                                                <input type="text" class="form-control m-b-10" required placeholder="Parameter Value" name="para_ans1[]" id="para_ans1">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans1[]" id="para_ans1">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans1[]" id="para_ans1">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans1[]" id="para_ans1">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans1[]" id="para_ans1">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans1[]" id="para_ans1">
+
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea type="text" name="parameter[]" parsley-trigger="change" placeholder="Parameter" class="form-control m-b-10" id="parameter" rows="2"></textarea>
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans2[]" id="para_ans2">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans2[]" id="para_ans2">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans2[]" id="para_ans2">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans2[]" id="para_ans2">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans2[]" id="para_ans2">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans2[]" id="para_ans2">
+
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea type="text" name="parameter[]" parsley-trigger="change" placeholder="Parameter" class="form-control m-b-10" id="parameter" rows="2"></textarea>
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans3[]" id="para_ans3">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans3[]" id="para_ans3">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans3[]" id="para_ans3">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans3[]" id="para_ans3">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans3[]" id="para_ans3">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans3[]" id="para_ans3">
+
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea type="text" name="parameter[]" parsley-trigger="change" placeholder="Parameter" class="form-control m-b-10" id="parameter" rows="2"></textarea>
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans4[]" id="para_ans4">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans4[]" id="para_ans4">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans4[]" id="para_ans4">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans4[]" id="para_ans4">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans4[]" id="para_ans4">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans4[]" id="para_ans4">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <textarea type="text" name="parameter[]" parsley-trigger="change" required placeholder="Parameter" class="form-control m-b-10" id="parameter" rows="2"></textarea>
+                                                <input type="text" class="form-control m-b-10" required placeholder="Parameter Value" name="para_ans5[]" id="para_ans5">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans5[]" id="para_ans5">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans5[]" id="para_ans5">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans5[]" id="para_ans5">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans5[]" id="para_ans5">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans5[]" id="para_ans5">
+                                            
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea type="text" name="parameter[]" parsley-trigger="change" placeholder="Parameter" class="form-control m-b-10" id="parameter" rows="2"></textarea>
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans6[]" id="para_ans6">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans6[]" id="para_ans6">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans6[]" id="para_ans6">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans6[]" id="para_ans6">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans6[]" id="para_ans6">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans6[]" id="para_ans6">
+                                            
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea type="text" name="parameter[]" parsley-trigger="change" placeholder="Parameter" class="form-control m-b-10" id="parameter" rows="2"></textarea>
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans7[]" id="para_ans7">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans7[]" id="para_ans7">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans7[]" id="para_ans7">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans7[]" id="para_ans7">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans7[]" id="para_ans7">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans7[]" id="para_ans7">                                          
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea type="text" name="parameter[]" parsley-trigger="change" placeholder="Parameter" class="form-control m-b-10" id="parameter" rows="2"></textarea>
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans8[]" id="para_ans8">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans8[]" id="para_ans8">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans8[]" id="para_ans8">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans8[]" id="para_ans8">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans8[]" id="para_ans8">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans8[]" id="para_ans8">                               
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <textarea type="text" name="parameter[]" parsley-trigger="change" required placeholder="Parameter" class="form-control m-b-10" id="parameter" rows="2"></textarea>
+                                                <input type="text" class="form-control m-b-10" required placeholder="Parameter Value" name="para_ans9[]" id="para_ans9">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans9[]" id="para_ans9">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans9[]" id="para_ans9">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans9[]" id="para_ans9">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans9[]" id="para_ans9">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans9[]" id="para_ans9">                             
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea type="text" name="parameter[]" parsley-trigger="change" placeholder="Parameter" class="form-control m-b-10" id="parameter" rows="2"></textarea>
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans10[]" id="para_ans10">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans10[]" id="para_ans10">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans10[]" id="para_ans10">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans10[]" id="para_ans10">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans10[]" id="para_ans10">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans10[]" id="para_ans10">
+                                          
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea type="text" name="parameter[]" parsley-trigger="change" placeholder="Parameter" class="form-control m-b-10" id="parameter" rows="2"></textarea>
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans11[]" id="para_ans11">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans11[]" id="para_ans11">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans11[]" id="para_ans11">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans11[]" id="para_ans11">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans11[]" id="para_ans11">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans11[]" id="para_ans11">
+                                           
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea type="text" name="parameter[]" parsley-trigger="change" placeholder="Parameter" class="form-control m-b-10" id="parameter" rows="2"></textarea>
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans12[]" id="para_ans12">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans12[]" id="para_ans12">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans12[]" id="para_ans12">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans12[]" id="para_ans12">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans12[]" id="para_ans12">
+                                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans12[]" id="para_ans12">
+                                           
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group text-right m-b-0">
+                                                <button class="btn btn-primary waves-effect waves-light" type="submit">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div id="loading"></div>
+
+                                </form>
+                            </div>
+                            <!-- end card-box -->
+                        </div>
+                        <!-- end col -->
+                    </div>
+                    <div class="container-fluid">
+                        
+                            <div class="card-box">
+                                <div class="row">
+                                    <h4 class="m-t-0 m-b-15 page-title"><b>Parameter</b></h4>
+                                </div>
+ <div id="pgmtable">
+
+                                <table id="" class="table table-bordered fddatatable">
+                                    <thead>
+                                        <tr>
+                                            <th>Sr.No</th>
+                                            <th>Parameters Set Name</th>
+                                            <th id="hideassignorgth">Assigned Orgnization</th>
+                                            <th>Status</th> 
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+
+
+                                     <tbody id="admin">
+                                                                                <tr>
+                                            <td>
+                                                1                                            </td>
+                                            <td>
+                                                Parameter Set 1                                            </td>
+                                            <td>
+                                                Life Line Org                                            </td>
+                                            <td>
+                                            <label class="switch">
+                                        <input type="checkbox" checked value="1" onclick="return status_checks(this)">
+                                        <span class="slider round"></span>
+                                        </label></td>
+
+                                            <td>
+                                                <span data-toggle="modal" data-target="#viewParameter"><a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="View" class="viewParameter" id="1"><i class="fa fa-eye" aria-hidden="true"></i></a></span>
+                                                <span data-toggle="modal" data-target="#editParameter"><a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Edit" class="viewParameter" id="1"><i class="fa fa-pencil" aria-hidden="true"></i></a></span>
+                                                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Delete" class="remove-row" id="1"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                            </td>
+                                        </tr>
+
+                                                                                <tr>
+                                            <td>
+                                                2                                            </td>
+                                            <td>
+                                                Parameter Set 2                                            </td>
+                                            <td>
+                                                Life Line Org                                            </td>
+                                            <td>
+                                            <label class="switch">
+                                        <input type="checkbox" checked value="2" onclick="return status_checks(this)">
+                                        <span class="slider round"></span>
+                                        </label></td>
+
+                                            <td>
+                                                <span data-toggle="modal" data-target="#viewParameter"><a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="View" class="viewParameter" id="2"><i class="fa fa-eye" aria-hidden="true"></i></a></span>
+                                                <span data-toggle="modal" data-target="#editParameter"><a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Edit" class="viewParameter" id="2"><i class="fa fa-pencil" aria-hidden="true"></i></a></span>
+                                                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Delete" class="remove-row" id="2"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                            </td>
+                                        </tr>
+
+                                                                                <tr>
+                                            <td>
+                                                3                                            </td>
+                                            <td>
+                                                Social Services Placement                                            </td>
+                                            <td>
+                                                Test Org1                                            </td>
+                                            <td>
+                                            <label class="switch">
+                                        <input type="checkbox" checked value="3" onclick="return status_checks(this)">
+                                        <span class="slider round"></span>
+                                        </label></td>
+
+                                            <td>
+                                                <span data-toggle="modal" data-target="#viewParameter"><a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="View" class="viewParameter" id="3"><i class="fa fa-eye" aria-hidden="true"></i></a></span>
+                                                <span data-toggle="modal" data-target="#editParameter"><a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Edit" class="viewParameter" id="3"><i class="fa fa-pencil" aria-hidden="true"></i></a></span>
+                                                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Delete" class="remove-row" id="3"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                            </td>
+                                        </tr>
+
+                                        
+                                    </tbody>
+                                </table>
+                                </div>
+                                <div id="adminpgmtable" style="display:none">
+                                <table id=""  class="table table-bordered fddatatable">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.No</th>
+                                        <th>Parameters Set Name</th> 
+                                        <th>Status</th>                    
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="superadmin">
+                                                                        <tr>
+                                            <td>
+                                                1                                            </td>
+                                            <td>
+                                                Parameter Set 1                                            </td>
+                                            <td>
+                                            <label class="switch">
+                                        <input type="checkbox" checked value="1" onclick="return status_checks(this)">
+                                        <span class="slider round"></span>
+                                        </label></td>
+
+                                          <td>
+                                                <span data-toggle="modal" data-target="#viewParameter"><a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="View" class="viewParameter" id="1"><i class="fa fa-eye" aria-hidden="true"></i></a></span>
+                                                <span data-toggle="modal" data-target="#editParameter"><a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Edit" class="viewParameter" id="1"><i class="fa fa-pencil" aria-hidden="true"></i></a></span>
+                                                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Delete" class="remove-row" id="1"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                            </td>
+                                        </tr>
+
+                                                                                <tr>
+                                            <td>
+                                                2                                            </td>
+                                            <td>
+                                                Parameter Set 2                                            </td>
+                                            <td>
+                                            <label class="switch">
+                                        <input type="checkbox" checked value="2" onclick="return status_checks(this)">
+                                        <span class="slider round"></span>
+                                        </label></td>
+
+                                          <td>
+                                                <span data-toggle="modal" data-target="#viewParameter"><a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="View" class="viewParameter" id="2"><i class="fa fa-eye" aria-hidden="true"></i></a></span>
+                                                <span data-toggle="modal" data-target="#editParameter"><a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Edit" class="viewParameter" id="2"><i class="fa fa-pencil" aria-hidden="true"></i></a></span>
+                                                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Delete" class="remove-row" id="2"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                            </td>
+                                        </tr>
+
+                                                                                <tr>
+                                            <td>
+                                                3                                            </td>
+                                            <td>
+                                                Social Services Placement                                            </td>
+                                            <td>
+                                            <label class="switch">
+                                        <input type="checkbox" checked value="3" onclick="return status_checks(this)">
+                                        <span class="slider round"></span>
+                                        </label></td>
+
+                                          <td>
+                                                <span data-toggle="modal" data-target="#viewParameter"><a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="View" class="viewParameter" id="3"><i class="fa fa-eye" aria-hidden="true"></i></a></span>
+                                                <span data-toggle="modal" data-target="#editParameter"><a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Edit" class="viewParameter" id="3"><i class="fa fa-pencil" aria-hidden="true"></i></a></span>
+                                                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Delete" class="remove-row" id="3"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                            </td>
+                                        </tr>
+
+                                                                        </tbody>
+                            </table>
+                            </div>
+                            </div>
+                        
+                    </div>
+
+                </div>
+                <!-- end container -->
+            </div>
+            <!-- end content -->
+
+
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Right content here -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- END wrapper -->
+
+    <!--View Organization modal-->
+    <div class="modal fade" id="viewParameter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Parameters</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Parameters Set Name</label>
+                                <input type="text" id="view_parameter_name" name="view_parameter_name" class="form-control" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div id="view_hideassignorg" style="display:none" class="form-group">
+                                <label>Assign Organization</label>
+                                <select class="form-control chosen-select" id="view_org_id" name="view_org_id" disabled>
+                                <option value=""></option>
+                                                <option value="11">Life Line Org</option><option value="12">Test Org1</option>      
+                                </select>
+                            </div>
+                        </div>
+                        <!--<div class="col-md-4">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <label>Status</label>-->
+                        <!--        <select class="form-control" id="view_status" name="view_status">-->
+                        <!--                            <option>Select status</option>-->
+                        <!--                            <option>Active</option>-->
+                        <!--                            <option>Inactive</option>-->
+                        <!--                        </select>-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                    </div>
+                    <div class="col-md-12"><label>Create Parameters</label></div>
+                    <div class="row" id="view_para" >
+                        
+                    
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--end View Organization modal -->
+
+    <!--Edit Organization modal-->
+    <div class="modal fade" id="editParameter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Parameters</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                 <form action="http://referrouter.com/Frontdoor/update_parameters" method="post">
+                    <div class="modal-body">
+                        <div class="row">
+                        
+                        <input type="hidden" id="edit_id" name="edit_id">
+                        <input type="hidden" id="edit_para_id" name="edit_para_id">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Parameters Set Name</label>
+                                    <input type="text" id="edit_parameter_name" name="edit_parameter_name" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div id="edit_hideassignorg" style="display:none" class="form-group">
+                                    <label>Assign Organization</label>
+                                    <select class="form-control chosen-select" data-placeholder="Select Organization" id="edit_org_id" name="edit_org_id" disabled>
+                                    <option value=""></option>
+                                                <option value="11">Life Line Org</option><option value="12">Test Org1</option>      
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <select class="form-control chosen-select" data-placeholder="Select Status" id="edit_status" name="edit_status">
+                                                    <option value=""></option>
+                                                    <option>Active</option>
+                                                    <option>Inactive</option>
+                                                </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12"><label>Create Parameters</label></div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <textarea type="text" name="edit_parameter[]" parsley-trigger="change" placeholder="Parameter" class="form-control m-b-10 edit_parameter" id="edit_parameter1" rows="2"></textarea>
+                                    <input type="text" class="form-control m-b-10 edit_para_ans" placeholder="Parameter Value" name="edit_para_ans1[]" id="edit_para_ans1">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans1" placeholder="Parameter Value" name="edit_para_ans1[]" id="edit_para_ans1">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans2" placeholder="Parameter Value" name="edit_para_ans1[]" id="edit_para_ans1">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans3" placeholder="Parameter Value" name="edit_para_ans1[]" id="edit_para_ans1">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans4" placeholder="Parameter Value" name="edit_para_ans1[]" id="edit_para_ans1">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans5" placeholder="Parameter Value" name="edit_para_ans1[]" id="edit_para_ans1">
+                               
+                                </div>
+                                <div class="form-group">
+                                    <textarea type="text" name="edit_parameter[]" parsley-trigger="change" placeholder="Parameter" class="form-control m-b-10 edit_parameter" id="edit_parameter2" rows="2"></textarea>
+                                    <input type="text" class="form-control m-b-10 edit_para_ans" placeholder="Parameter Value" name="edit_para_ans2[]" id="edit_para_ans2">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans1" placeholder="Parameter Value" name="edit_para_ans2[]" id="edit_para_ans2">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans2" placeholder="Parameter Value" name="edit_para_ans2[]" id="edit_para_ans2">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans3" placeholder="Parameter Value" name="edit_para_ans2[]" id="edit_para_ans2">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans4" placeholder="Parameter Value" name="edit_para_ans2[]" id="edit_para_ans2">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans5" placeholder="Parameter Value" name="edit_para_ans2[]" id="edit_para_ans2">
+                               
+                                </div>
+                                <div class="form-group">
+                                    <textarea type="text" name="edit_parameter[]" parsley-trigger="change" placeholder="Parameter" class="form-control m-b-10 edit_parameter" id="edit_parameter3" rows="2"></textarea>
+                                    <input type="text" class="form-control m-b-10 edit_para_ans" placeholder="Parameter Value" name="edit_para_ans3[]" id="edit_para_ans3">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans1" placeholder="Parameter Value" name="edit_para_ans3[]" id="edit_para_ans3">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans2" placeholder="Parameter Value" name="edit_para_ans3[]" id="edit_para_ans3">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans3" placeholder="Parameter Value" name="edit_para_ans3[]" id="edit_para_ans3">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans4" placeholder="Parameter Value" name="edit_para_ans3[]" id="edit_para_ans3">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans5" placeholder="Parameter Value" name="edit_para_ans3[]" id="edit_para_ans3">
+                               
+                                </div>
+                                <div class="form-group">
+                                    <textarea type="text" name="edit_parameter[]" parsley-trigger="change" placeholder="Parameter" class="form-control m-b-10 edit_parameter" id="edit_parameter4" rows="2"></textarea>
+                                    <input type="text" class="form-control m-b-10 edit_para_ans" placeholder="Parameter Value" name="edit_para_ans4[]" id="edit_para_ans4">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans1" placeholder="Parameter Value" name="edit_para_ans4[]" id="edit_para_ans4">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans2" placeholder="Parameter Value" name="edit_para_ans4[]" id="edit_para_ans4">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans3" placeholder="Parameter Value" name="edit_para_ans4[]" id="edit_para_ans4">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans4" placeholder="Parameter Value" name="edit_para_ans4[]" id="edit_para_ans4">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans5" placeholder="Parameter Value" name="edit_para_ans4[]" id="edit_para_ans4">
+                               
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <textarea type="text" name="edit_parameter[]" parsley-trigger="change" placeholder="Parameter" class="form-control m-b-10 edit_parameter" id="edit_parameter5" rows="2"></textarea>
+                                    <input type="text" class="form-control m-b-10 edit_para_ans" placeholder="Parameter Value" name="edit_para_ans5[]" id="edit_para_ans5">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans1" placeholder="Parameter Value" name="edit_para_ans5[]" id="edit_para_ans5">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans2" placeholder="Parameter Value" name="edit_para_ans5[]" id="edit_para_ans5">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans3" placeholder="Parameter Value" name="edit_para_ans5[]" id="edit_para_ans5">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans4" placeholder="Parameter Value" name="edit_para_ans5[]" id="edit_para_ans5">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans5" placeholder="Parameter Value" name="edit_para_ans5[]" id="edit_para_ans5">
+                               
+                                </div>
+                                <div class="form-group">
+                                    <textarea type="text" name="edit_parameter[]" parsley-trigger="change" placeholder="Parameter" class="form-control m-b-10 edit_parameter" id="edit_parameter6" rows="2"></textarea>
+                                    <input type="text" class="form-control m-b-10 edit_para_ans" placeholder="Parameter Value" name="edit_para_ans6[]" id="edit_para_ans6">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans1" placeholder="Parameter Value" name="edit_para_ans6[]" id="edit_para_ans6">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans2" placeholder="Parameter Value" name="edit_para_ans6[]" id="edit_para_ans6">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans3" placeholder="Parameter Value" name="edit_para_ans6[]" id="edit_para_ans6">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans4" placeholder="Parameter Value" name="edit_para_ans6[]" id="edit_para_ans6">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans5" placeholder="Parameter Value" name="edit_para_ans6[]" id="edit_para_ans6">
+                               
+                                </div>
+                                <div class="form-group">
+                                    <textarea type="text" name="edit_parameter[]" parsley-trigger="change" placeholder="Parameter" class="form-control m-b-10 edit_parameter" id="edit_parameter7" rows="2"></textarea>
+                                    <input type="text" class="form-control m-b-10 edit_para_ans" placeholder="Parameter Value" name="edit_para_ans7[]" id="edit_para_ans7">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans1" placeholder="Parameter Value" name="edit_para_ans7[]" id="edit_para_ans7">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans2" placeholder="Parameter Value" name="edit_para_ans7[]" id="edit_para_ans7">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans3" placeholder="Parameter Value" name="edit_para_ans7[]" id="edit_para_ans7">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans4" placeholder="Parameter Value" name="edit_para_ans7[]" id="edit_para_ans7">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans5" placeholder="Parameter Value" name="edit_para_ans7[]" id="edit_para_ans7">
+                               
+                                </div>
+                                <div class="form-group">
+                                    <textarea type="text" name="edit_parameter[]" parsley-trigger="change" placeholder="Parameter" class="form-control m-b-10 edit_parameter" id="edit_parameter8" rows="2"></textarea>
+                                    <input type="text" class="form-control m-b-10 edit_para_ans" placeholder="Parameter Value" name="edit_para_ans8[]" id="edit_para_ans8">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans1" placeholder="Parameter Value" name="edit_para_ans8[]" id="edit_para_ans8">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans2" placeholder="Parameter Value" name="edit_para_ans8[]" id="edit_para_ans8">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans3" placeholder="Parameter Value" name="edit_para_ans8[]" id="edit_para_ans8">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans4" placeholder="Parameter Value" name="edit_para_ans8[]" id="edit_para_ans8">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans5" placeholder="Parameter Value" name="edit_para_ans8[]" id="edit_para_ans8">
+                               
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <textarea type="text" name="edit_parameter[]" parsley-trigger="change" placeholder="Parameter" class="form-control m-b-10 edit_parameter" id="edit_parameter9" rows="2"></textarea>
+                                    <input type="text" class="form-control m-b-10 edit_para_ans" placeholder="Parameter Value" name="edit_para_ans9[]" id="edit_para_ans9">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans1" placeholder="Parameter Value" name="edit_para_ans9[]" id="edit_para_ans9">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans2" placeholder="Parameter Value" name="edit_para_ans9[]" id="edit_para_ans9">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans3" placeholder="Parameter Value" name="edit_para_ans9[]" id="edit_para_ans9">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans4" placeholder="Parameter Value" name="edit_para_ans9[]" id="edit_para_ans9">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans5" placeholder="Parameter Value" name="edit_para_ans9[]" id="edit_para_ans9">
+                               
+                                </div>
+                                <div class="form-group">
+                                    <textarea type="text" name="edit_parameter[]" parsley-trigger="change" placeholder="Parameter" class="form-control m-b-10 edit_parameter" id="edit_parameter10" rows="2"></textarea>
+                                    <input type="text" class="form-control m-b-10 edit_para_ans" placeholder="Parameter Value" name="edit_para_ans10[]" id="edit_para_ans10">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans1" placeholder="Parameter Value" name="edit_para_ans10[]" id="edit_para_ans10">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans2" placeholder="Parameter Value" name="edit_para_ans10[]" id="edit_para_ans10">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans3" placeholder="Parameter Value" name="edit_para_ans10[]" id="edit_para_ans10">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans4" placeholder="Parameter Value" name="edit_para_ans10[]" id="edit_para_ans10">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans5" placeholder="Parameter Value" name="edit_para_ans10[]" id="edit_para_ans10">
+                               
+                                </div>
+                                <div class="form-group">
+                                    <textarea type="text" name="edit_parameter[]" parsley-trigger="change" placeholder="Parameter" class="form-control m-b-10 edit_parameter" id="edit_parameter11" rows="2"></textarea>
+                                    <input type="text" class="form-control m-b-10 edit_para_ans" placeholder="Parameter Value" name="edit_para_ans11[]" id="edit_para_ans11">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans1" placeholder="Parameter Value" name="edit_para_ans11[]" id="edit_para_ans11">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans2" placeholder="Parameter Value" name="edit_para_ans11[]" id="edit_para_ans11">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans3" placeholder="Parameter Value" name="edit_para_ans11[]" id="edit_para_ans11">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans4" placeholder="Parameter Value" name="edit_para_ans11[]" id="edit_para_ans11">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans5" placeholder="Parameter Value" name="edit_para_ans11[]" id="edit_para_ans11">
+                               
+                                </div>
+                                <div class="form-group">
+                                    <textarea type="text" name="edit_parameter[]" parsley-trigger="change" placeholder="Parameter" class="form-control m-b-10 edit_parameter" id="edit_parameter12" rows="2"></textarea>
+                                    <input type="text" class="form-control m-b-10 edit_para_ans" placeholder="Parameter Value" name="edit_para_ans12[]" id="edit_para_ans12">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans1" placeholder="Parameter Value" name="edit_para_ans12[]" id="edit_para_ans12">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans2" placeholder="Parameter Value" name="edit_para_ans12[]" id="edit_para_ans12">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans3" placeholder="Parameter Value" name="edit_para_ans12[]" id="edit_para_ans12">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans4" placeholder="Parameter Value" name="edit_para_ans12[]" id="edit_para_ans12">
+                                    <input type="text" class="form-control m-b-10 edit_para_ans5" placeholder="Parameter Value" name="edit_para_ans12[]" id="edit_para_ans12">
+                               
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group text-right m-b-0">
+                                    <button class="btn btn-primary waves-effect waves-light" type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--end Edit Organization modal -->
+
+
+    <script>
+        var resizefunc = [];
+
+    </script>
+    <footer class="footer">
+    2018 - 2020 © Referrouter
+</footer>
+
+
+<!-- Plugins  -->
+<!--<script src="assets/js/jquery.min.js"></script>-->
+<script src="http://referrouter.com/assets/js/jquery-3.2.1.min.js"></script>
+<script src="http://referrouter.com/assets/js/modernizr.min.js"></script>
+<script src="http://referrouter.com/assets/js/popper.min.js"></script>
+<!-- Popper for Bootstrap -->
+<script src="http://referrouter.com/assets/js/bootstrap.min.js"></script>
+<script src="http://referrouter.com/assets/js/detect.js"></script>
+<script src="http://referrouter.com/assets/js/fastclick.js"></script>
+<script src="http://referrouter.com/assets/js/jquery.slimscroll.js"></script>
+<script src="http://referrouter.com/assets/js/jquery.blockUI.js"></script>
+<script src="http://referrouter.com/assets/js/waves.js"></script>
+<script src="http://referrouter.com/assets/js/wow.min.js"></script>
+<script src="http://referrouter.com/assets/js/jquery.nicescroll.js"></script>
+<script src="http://referrouter.com/assets/js/jquery.scrollTo.min.js"></script>
+<script src="http://referrouter.com/plugins/switchery/switchery.min.js"></script>
+<!--<script src="plugins/select2/select2.min.js" type="text/javascript"></script>-->
+<script src="http://referrouter.com/plugins/choosen/chosen.jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://referrouter.com/plugins/parsleyjs/dist/parsley.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/b-1.5.2/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/r-2.2.2/datatables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.js" type="text/javascript"></script>
+<!--Sweet alert-->
+ <!-- <script src="http://referrouter.com/assets/js/sweetalert.init.js"></script> -->
+ <script src="http://referrouter.com/assets/js/sweetalert.min.js"></script>
+ <script src="http://referrouter.com/assets/js/sweetalert.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
+<!-- Custom main Js -->
+<!--<script src="assets/pages/jquery.form-advanced.init.js"></script>-->
+<script src="http://referrouter.com/assets/js/jquery.core.js"></script>
+<script src="http://referrouter.com/assets/js/jquery.app.js"></script>
+
+ <!-- <script>
+    $(".chosen-select").chosen({
+no_results_text: "Oops, nothing found!",
+allow_single_deselect: true
+}); 
+</script> -->
+<script>
+    $(".chosen-select").chosen({no_results_text: "Oops, nothing found!"}); 
+</script>
+
+<!--Autologout after 15 min if user is inactive JavaScript -->
+<script type="text/javascript">
+idleTimer = null;
+idleState = false;
+idleWait = 900000;
+
+(function ($) {
+
+    $(document).ready(function () {
+    
+        $('*').bind('mousemove click mouseup mousedown keydown keypress keyup submit change mouseenter scroll resize dblclick', function () {
+        
+            clearTimeout(idleTimer);
+                    
+            if (idleState == true) { 
+                
+                // Reactivated event
+                $("body").append("<p>Welcome Back.</p>");            
+            }
+            
+            idleState = false;
+            
+            idleTimer = setTimeout(function () { 
+                
+                // Idle Event
+                window.location = "http://referrouter.com/logout";
+
+                idleState = true; }, idleWait);
+        });
+        
+        $("body").trigger("mousemove");
+    
+    });
+}) (jQuery)
+
+</script>
+
+<!--Close flashdata after 1500 sec JavaScript -->
+<script type="text/javascript"> 
+      $(document).ready( function() {
+        $('.alert-dismissable').delay(1500).fadeOut();
+      });
+</script>
+<script type="text/javascript">
+     $('.datepicker').datepicker({
+            format: "mm/dd/yyyy",
+            autoclose: true,
+            todayHighlight: true
+        });
+        //-----------show pwd-----
+          
+$(document).ready(function(){
+$('.pass_show').append('<span class="ptxt">Show</span>');  
+});
+  
+
+$(document).on('click','.pass_show .ptxt', function(){ 
+
+$(this).text($(this).text() == "Show" ? "Hide" : "Show"); 
+
+$(this).prev().attr('type', function(index, attr){return attr == 'password' ? 'text' : 'password'; }); 
+
+});  
+</script>
+
+
+     <script type="text/javascript">
+        var user = 'Superadmin';
+        if (user == 'Superadmin') {
+
+            document.getElementById('hideassignorg').style.display = 'block';
+            document.getElementById('view_hideassignorg').style.display = 'block';
+            document.getElementById('edit_hideassignorg').style.display = 'block';
+            document.getElementById("hideassignorgth").style.display = "block";
+            //document.getElementById("superadmin").style.display = "block";
+            document.getElementById("pgmtable").style.display = "block";//id="view_hideassignorg" style="display:none"
+
+        } else {
+            document.getElementById('hideassignorg').style.display = 'none';
+            document.getElementById('view_hideassignorg').style.display = 'none';
+            document.getElementById('edit_hideassignorg').style.display = 'none';
+            // document.getElementById('hideassignorgcol').style.display = 'none';
+            // document.getElementById("hideassignorgth").style.display = "none"; 
+            document.getElementById("pgmtable").style.display = "none";
+            document.getElementById("adminpgmtable").style.display = "block";
+        }
+
+    </script>
+    <script type="text/javascript">
+        $(document).on('click', '.viewParameter', function() {
+            var p_id = $(this).attr("id");
+            var id = parseInt(p_id);
+
+            $.ajax({
+                url: "http://referrouter.com/Frontdoor/get_parameters_details",
+                method: "POST",
+                data: {
+                    id: id
+                },
+                dataType: "json",
+                success: function(response) {
+                    console.log(response);
+                    var para_id='';
+                     var org_id = '';
+                     var html='';
+                    for (var i = 0; i < response.qry1.data.length; i = i + 1) {
+                                       
+                                        $('input[name=view_parameter_name]').val(response.qry1.data[i].parameter_name);
+                                        // $('#view_status').val(response.qry1.data[i].status);
+                                        // $(view_status).trigger("chosen:updated");
+                                        $('input[name=edit_parameter_name]').val(response.qry1.data[i].parameter_name);
+                                        $('#edit_status').val(response.qry1.data[i].status);
+                                        $(edit_status).trigger("chosen:updated");
+                                        $('#view_org_id').val(response.qry1.data[i].org_id);
+                                        $(view_org_id).trigger("chosen:updated");
+                                        
+                                        $('#edit_org_id').val(response.qry1.data[i].org_id);
+                                        $(edit_org_id).trigger("chosen:updated");
+                                        $('input[name=edit_id]').val(response.qry1.data[i].p_id);                                         
+                                        para_id+=response.qry1.data[i].para_id.concat(",");
+                                        value=response.qry1.data[i].p_answer.split(",");
+                                        //console.log(value);
+                                        
+                                     
+                                        
+                                        var html1='';
+                                        for(j=0;j<value.length;j++){
+                                            if(value[j]!=''){
+                                        html1 += '<input type="text" class="form-control m-b-10 view_answer" value="'+value[j]+'" placeholder="Parameter Value" name="view_para_ans1" id="view_para_ans1" disabled>';
+                                        }
+                                        }
+                                        html+= '<div class="col-md-4"><div class="form-group"><textarea type="text" name="view_parameter" parsley-trigger="change" placeholder="Parameter" class="form-control m-b-10 view_parameter" id="view_parameter" rows="2" disabled></textarea>'+html1+'</div></div>';
+                                       
+                                        }                                   
+                                        $('input[name=edit_para_id]').val(para_id);
+                                        $('#view_para').html(html);
+                                        view_parameter = document.getElementsByClassName("view_parameter");
+                                        view_answer = document.getElementsByClassName("view_answer");
+                                       
+                                        edit_parameter = document.getElementsByClassName("edit_parameter");
+                                        edit_para_ans = document.getElementsByClassName("edit_para_ans");
+                                        edit_para_ans1 = document.getElementsByClassName("edit_para_ans1");
+                                        edit_para_ans2 = document.getElementsByClassName("edit_para_ans2");
+                                        edit_para_ans3 = document.getElementsByClassName("edit_para_ans3");
+                                        edit_para_ans4 = document.getElementsByClassName("edit_para_ans4");
+                                        edit_para_ans5 = document.getElementsByClassName("edit_para_ans5");
+                                    
+                                        for (var i = 0; i < response.qry1.data.length; i++) {
+                                        view_parameter[i].value =response.qry1.data[i].parameter;                                    
+                                        edit_parameter[i].value = response.qry1.data[i].parameter;
+                                        value=response.qry1.data[i].p_answer.split(",");
+                                       
+                                       if(value[0]!=null)
+                                       {
+                                        edit_para_ans[i].value= value[0];
+                                       }
+                                       if(value[1]!=null)
+                                       {
+                                        edit_para_ans1[i].value= value[1];
+                                       }
+                                       
+                                       if(value[2]!=null)
+                                       {
+                                        edit_para_ans2[i].value= value[2];
+                                       }
+                                       if(value[3]!=null)
+                                       {
+                                        edit_para_ans3[i].value= value[3];
+                                       }
+                                       if(value[4]!=null)
+                                       {
+                                        edit_para_ans4[i].value= value[4];
+                                       }
+                                       if(value[5]!=null)
+                                       {
+                                        edit_para_ans5[i].value= value[5];
+                                       }
+                                       
+                                        } 
+                                       
+                                        
+                            }
+            });
+        });
+
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(document).on('click', '.remove-row', function(e) {
+
+                var id = $(this).attr("id");
+
+                confirmDelete(id);
+                e.preventDefault();
+            });
+        });
+
+        function confirmDelete(id) {
+            swal({
+                    title: "Are you sure you want to delete this of ?",
+                    text: "Delete Confirmation?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Delete",
+                    closeOnConfirm: false
+                },
+                function() {
+                    $.ajax({
+                            type: "post",
+                            url: "http://referrouter.com/Frontdoor/delete_parameters",
+                            data: "id=" + id,
+                            success: function(data) {
+
+                            }
+                        })
+                        .done(function(data) {
+                            swal("Deleted!", "Data Successfully Deleted!", "success");
+                            // $("#refreshdata").load(location.href + " #refreshdata");
+                            location.reload();
+
+                        })
+                        .error(function(data) {
+                            swal("Oops", "We couldn't connect to the server!", "error");
+                        });
+                });
+        }
+
+    </script>
+    <script>
+        function onReady(callback) {
+            var intervalId = window.setInterval(function() {
+                if (document.getElementsByTagName('body')[0] !== undefined) {
+                    window.clearInterval(intervalId);
+                    callback.call(this);
+                }
+            }, 1000);
+        }
+
+        function setVisible(selector, visible) {
+            document.querySelector(selector).style.display = visible ? 'block' : 'none';
+        }
+
+        onReady(function() {
+            setVisible('.page', true);
+            setVisible('#loading', false);
+        });
+
+    </script>
+    <script>
+        $(document).ready(function() {
+            resizeChosen();
+            jQuery(window).on('resize', resizeChosen);
+        });
+
+        function resizeChosen() {
+            $(".chosen-container").each(function() {
+                $(this).attr('style', 'width: 100%');
+            });
+        }
+
+    </script>
+    <script type="text/javascript">
+            function status_checks(status) {
+                var id = status.value;
+
+                $.ajax({
+                    type: 'ajax',
+                    method: 'POST',
+                    url: 'http://referrouter.com/Frontdoor/paramerter_status',
+                    data: {
+                        id: id
+                    },
+                    async: false,
+                    dataType: 'json',
+                    success: function(data) {
+
+                    },
+                    error: function() {
+                        alert('Could not change status');
+                    }
+                });
+            }
+
+        </script>
+
+
+</body>
+
+</html>
