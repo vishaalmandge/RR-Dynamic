@@ -1,0 +1,124 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="FroontDoor">
+    <link rel="shortcut icon" href="assets/images/favicon_1.ico">
+    <title>Front Door - Superadmin</title>
+    <link href="plugins/switchery/switchery.min.css" rel="stylesheet" />
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+
+</head>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card-box">
+            <div class="col-md-12 col-md-offset-6">
+            </div>
+            <form action="http://referrouter.com/Frontdoor/add_parameters" method="Post" data-parsley-validate="">
+                <div class="page">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Parameters Set Name</label>
+                                <input type="text" id="parameter_name" name="parameter_name" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div id="hideassignorg" style="display:none" class="form-group">
+                                <label>Assign Orgnization</label>
+                                <select class="form-control chosen-select" data-placeholder="Select Organization" id="org_id" name="org_id">
+                                    <option value=""></option>
+                                    <option value="11">Life Line Org</option>
+                                    <option value="12">Test Org1</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select class="form-control chosen-select" required data-placeholder="Select Status" id="status" name="status">
+                                    <option value=""></option>
+                                    <option>Active</option>
+                                    <option>Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">                        
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <textarea type="text" name="parameter[]" parsley-trigger="change" required placeholder="Parameter" class="form-control m-b-10" id="pn1" rows="2"></textarea>
+                                <input type="text" class="form-control m-b-10" required placeholder="Parameter Value" name="para_ans1[]" id="pv1">
+                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans1[]" id="pv2">
+                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans1[]" id="pv3">
+                                <a href="javascript:void(0);" id="addpv1" class="addpv1"><small>Add parameter values</small></a>
+                                <div id="addpvdynamic" class="addpvdynamic">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <textarea type="text" name="parameter[]" parsley-trigger="change" required placeholder="Parameter" class="form-control m-b-10" id="pn2" rows="2"></textarea>
+                                <input type="text" class="form-control m-b-10" required placeholder="Parameter Value" name="para_ans5[]" id="prv1">
+                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans5[]" id="prv2">
+                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans5[]" id="prv3">
+                                <a href="javascript:void(0);" id="addprv1" class="addpv1"><small>Add parameter values</small></a>
+                                <div id="addprvdynamic" class="addprvdynamic">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <textarea type="text" name="parameter[]" parsley-trigger="change" required placeholder="Parameter" class="form-control m-b-10" id="pn3" rows="2"></textarea>
+                                <input type="text" class="form-control m-b-10" required placeholder="Parameter Value" name="para_ans9[]" id="prmv1">
+                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans9[]" id="prmv2">
+                                <input type="text" class="form-control m-b-10" placeholder="Parameter Value" name="para_ans9[]" id="prmv3">
+                                <a href="javascript:void(0);" id="addprmv1" class="addpv1"><small>Add parameter values</small></a>
+                                <div id="addprmvdynamic" class="addprmvdynamic">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="javascript:void(0);" class="addRow">Add more</a>
+                        </div>
+                    </div>
+                    <div class="" id="dynamic">
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group text-right m-b-0">
+                                <button class="btn btn-primary waves-effect waves-light" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="loading"></div>
+
+            </form>
+        </div>
+        <!-- end card-box -->
+    </div>
+    <!-- end col -->
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="addParams.js"></script>
