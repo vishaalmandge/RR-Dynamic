@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<head>
+    <style>
+        body {
+            font-family: sans-serif;
+            font-weight: bold;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .cont {
+            width: 720px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 720px;
+            justify-content: flex-start;
+        }
+
+        .single-item {
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f3f3f3;
+            margin: 20px;
+            border-radius: 10px;
+            color: #888;
+        }
+
+        .pagination {
+            padding: 20px;
+        }
+
+        .pagination,
+        .pagination * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .pagination a {
+            display: inline-block;
+            padding: 0 10px;
+            cursor: pointer;
+        }
+
+        .pagination a.disabled {
+            opacity: .3;
+            pointer-events: none;
+            cursor: not-allowed;
+        }
+
+        .pagination a.current {
+            background: #f3f3f3;
+        }
+
+
+        :root {
+            /*************************** Page-wide variables ****************************/
+
+            /* Base spacing unit. */
+            --spacing-unit: 6px;
+
+            /* Margin size. No unit, because it's a multiple of the spacing unit. */
+            --margins: 2;
+
+            /* Colors. */
+            --primary-color: #5E35B1;
+            --primary-color-text: #FFF;
+
+            /* Number of columns to show. */
+            --grid-columns: 3;
+
+            /***************************** Calculated values ****************************/
+            /* We don't use calc here because we don't want to resolve the values yet.
+     You can think of these as simple textual replacements. */
+
+            /* The size of the margin around the card grid. */
+            --margin-size: (var(--margins) * 2);
+            /* How much internal padding each cell should have */
+            --cell-padding: (4 * var(--spacing-unit));
+            /* How big the space between cells should be */
+            --grid-gutter: (var(--margins) * var(--spacing-unit));
+            /* How big the space should be around the grid */
+            --grid-margin: (var(--margin-size) * var(--spacing-unit));
+            /* Calculated cell margin */
+            --cell-margin: (var(--grid-gutter) / 2);
+        }
+
+        .header {
+            display: block;
+            position: relative;
+            height: calc(28 * var(--spacing-unit));
+            /* Use a default value for the background color, by passing it in as the 2nd
+     parameter to var(). We don't strictly need it in this case, since we've
+     defined it at the document level, but this illustrates common usage. */
+            background-color: var(--primary-color, #5E35B1);
+            padding-left: calc(4 * var(--spacing-unit));
+
+            transition: background-color 1s;
+        }
+
+        .title {
+            position: relative;
+            top: calc(8 * var(--spacing-unit));
+            font-family: 'Roboto', 'Helvetica', sans-serif;
+            font-size: calc(4 * var(--spacing-unit));
+            font-weight: 400;
+            color: var(--primary-color-text);
+
+            transition: color 1s;
+        }
+
+        .shade {
+            display: block;
+            box-sizing: border-box;
+            position: absolute;
+            padding-left: calc(1 * var(--spacing-unit));
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: calc(8 * var(--spacing-unit));
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .grid {
+            /* Resets */
+            margin: 0;
+            border: 0;
+            padding: 0;
+
+            display: flex;
+            flex-flow: row wrap;
+            align-items: stretch;
+
+            padding: calc(var(--grid-margin) - var(--cell-margin));
+
+            background-color: var(--grid-color);
+        }
+
+        .cell {
+            font-family: 'Roboto', 'Helvetica', sans-serif;
+            color: rgb(97, 97, 97);
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            margin: calc(var(--cell-margin));
+            background-color: var(--cell-color);
+            width: calc(100% / var(--grid-columns) - var(--grid-gutter));
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14),
+                0 3px 1px -2px rgba(0, 0, 0, .2),
+                0 1px 5px 0 rgba(0, 0, 0, .12);
+        }
+
+        .cell-title {
+            font-size: calc(3 * var(--spacing-unit));
+        }
+
+        .cell-header {
+            display: flex;
+            align-items: center;
+            color: var(--primary-color-text);
+            box-sizing: border-box;
+            background-color: var(--primary-color);
+            padding-left: calc(var(--cell-padding));
+            height: calc(12 * var(--spacing-unit));
+        }
+
+        .cell-content {
+            font-size: calc(2.5 * var(--spacing-unit));
+            padding: calc(var(--cell-padding));
+            flex-grow: 1;
+        }
+
+        .cell-actions {
+            padding: calc(2 * var(--spacing-unit));
+            border-top: 1px solid rgba(0, 0, 0, 0.12);
+        }
+
+        .picker-button {
+            position: relative;
+            font-family: 'Roboto', 'Helvetica', sans-serif;
+            font-size: calc(2 * var(--spacing-unit));
+            display: inline-block;
+            box-sizing: border-box;
+            border: none;
+            border-radius: 2px;
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: calc(2 * var(--spacing-unit));
+            text-decoration: none;
+            background: transparent;
+            cursor: pointer;
+            overflow: hidden;
+            text-transform: uppercase;
+
+            transition: background-color 0.2s;
+        }
+
+        .picker-button:focus {
+            outline: none;
+        }
+
+        .picker-button:active {
+            background-color: #DDD;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            font-family: sans-serif;
+            font-size: 12px;
+            padding: 8px;
+            background-color: rgba(200, 200, 200, 0.8);
+        }
+
+        .control {
+            display: flex;
+            align-items: center;
+            margin: 0 0 8px 0;
+        }
+
+        .control-key {
+            flex-grow: 1;
+            margin-right: 16px;
+        }
+
+        .control-value {
+            width: 152px;
+        }
+
+    </style>
+</head>
+
+<body class="test">
+    <!--<div class="grid">
+        <div class="cell" style="--primary-color: #F44336; --primary-color-text: #FFF;">
+            <header class="cell-header">
+                <div class="cell-title">
+                    Red
+                </div>
+            </header>
+            <main class="cell-content">
+                Click the buttons on the cards to set the default color scheme for the
+                whole sample.
+            </main>
+            <div class="cell-actions">
+                <button class="picker-button">
+                    Use this color
+                    <div class="ripple"></div>
+                </button>
+            </div>
+        </div>
+        <div class="cell" style="--primary-color: #E91E63; --primary-color-text: #FFF;">
+            <header class="cell-header">
+                <div class="cell-title">
+                    Pink
+                </div>
+            </header>
+            <main class="cell-content">
+                The colors on the cards are not affected because they're individually
+                defined at the card level, and thus prioritised according to standard CSS
+                rules.
+            </main>
+            <div class="cell-actions">
+                <button class="picker-button">
+                    Use this color
+                    <div class="ripple"></div>
+                </button>
+            </div>
+        </div>
+        <div class="cell" style="--primary-color: #9C27B0; --primary-color-text: #FFF;">
+            <header class="cell-header">
+                <div class="cell-title">
+                    Purple
+                </div>
+            </header>
+            <main class="cell-content">
+                Use the controls above to adjust some properties that affect the entire
+                page.
+            </main>
+            <div class="cell-actions">
+                <button class="picker-button">
+                    Use this color
+                    <div class="ripple"></div>
+                </button>
+            </div>
+        </div>
+        <div class="cell" style="--primary-color: #00BCD4; --primary-color-text: #424242;">
+            <header class="cell-header">
+                <div class="cell-title">
+                    Cyan
+                </div>
+            </header>
+            <main class="cell-content">
+                Every size on the page is calculated as a multiple of the spacing unit,
+                so setting the property to a different value resizes all elements.
+            </main>
+            <div class="cell-actions">
+                <button class="picker-button">
+                    Use this color
+                    <div class="ripple"></div>
+                </button>
+            </div>
+        </div>
+        <div class="cell" style="--primary-color: #009688; --primary-color-text: #FFF;">
+            <header class="cell-header">
+                <div class="cell-title">
+                    Teal
+                </div>
+            </header>
+            <main class="cell-content">
+                Changing the number of columns is done by recalculating the relative size
+                of cells on the grid.
+            </main>
+            <div class="cell-actions">
+                <button class="picker-button">
+                    Use this color
+                    <div class="ripple"></div>
+                </button>
+            </div>
+        </div>
+        <div class="cell" style="--primary-color: #4CAF50; --primary-color-text: #424242;">
+            <header class="cell-header">
+                <div class="cell-title">
+                    Green
+                </div>
+            </header>
+            <main class="cell-content">
+                Margins adjusts both the spacing around the grid and the gutters inside of
+                it.
+            </main>
+            <div class="cell-actions">
+                <button class="picker-button">
+                    Use this color
+                    <div class="ripple"></div>
+                </button>
+            </div>
+        </div>
+    </div>-->
+    <div class="cont">
+        <div class="container">
+            <div class="single-item">1</div>
+            <div class="single-item">2</div>
+            <div class="single-item">3</div>
+            <div class="single-item">4</div>
+            <div class="single-item">5</div>
+            <div class="single-item">6</div>
+            <div class="single-item">7</div>
+            <div class="single-item">8</div>
+            <div class="single-item">9</div>
+            <div class="single-item">10</div>
+            <div class="single-item">11</div>
+            <div class="single-item">12</div>
+            <div class="single-item">13</div>
+            <div class="single-item">14</div>
+            <div class="single-item">15</div>
+            <div class="single-item">16</div>
+            <div class="single-item">17</div>
+            <div class="single-item">18</div>
+            <div class="single-item">19</div>
+            <div class="single-item">20</div>
+            <div class="single-item">21</div>
+            <div class="single-item">22</div>
+            <div class="single-item">23</div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script>
+        (function($) {
+            var pagify = {
+                items: {},
+                container: null,
+                totalPages: 1,
+                perPage: 3,
+                currentPage: 0,
+                createNavigation: function() {
+                    this.totalPages = Math.ceil(this.items.length / this.perPage);
+
+                    $('.pagination', this.container.parent()).remove();
+                    var pagination = $('<div class="pagination"></div>').append('<a class="nav prev disabled" data-next="false"><</a>');
+
+                    for (var i = 0; i < this.totalPages; i++) {
+                        var pageElClass = "page";
+                        if (!i)
+                            pageElClass = "page current";
+                        var pageEl = '<a class="' + pageElClass + '" data-page="' + (
+                            i + 1) + '">' + (
+                            i + 1) + "</a>";
+                        pagination.append(pageEl);
+                    }
+                    pagination.append('<a class="nav next" data-next="true">></a>');
+
+                    this.container.after(pagination);
+
+                    var that = this;
+                    $(".test").off("click", ".nav");
+                    this.navigator = $(".test").on("click", ".nav", function() {
+                        var el = $(this);
+                        that.navigate(el.data("next"));
+                    });
+
+                    $(".test").off("click", ".page");
+                    this.pageNavigator = $(".test").on("click", ".page", function() {
+                        var el = $(this);
+                        that.goToPage(el.data("page"));
+                    });
+                },
+                navigate: function(next) {
+                    // default perPage to 5
+                    if (isNaN(next) || next === undefined) {
+                        next = true;
+                    }
+                    $(".pagination .nav").removeClass("disabled");
+                    if (next) {
+                        this.currentPage++;
+                        if (this.currentPage > (this.totalPages - 1))
+                            this.currentPage = (this.totalPages - 1);
+                        if (this.currentPage == (this.totalPages - 1))
+                            $(".pagination .nav.next").addClass("disabled");
+                    } else {
+                        this.currentPage--;
+                        if (this.currentPage < 0)
+                            this.currentPage = 0;
+                        if (this.currentPage == 0)
+                            $(".pagination .nav.prev").addClass("disabled");
+                    }
+
+                    this.showItems();
+                },
+                updateNavigation: function() {
+
+                    var pages = $(".pagination .page");
+                    pages.removeClass("current");
+                    $('.pagination .page[data-page="' + (
+                        this.currentPage + 1) + '"]').addClass("current");
+                },
+                goToPage: function(page) {
+
+                    this.currentPage = page - 1;
+
+                    $(".pagination .nav").removeClass("disabled");
+                    if (this.currentPage == (this.totalPages - 1))
+                        $(".pagination .nav.next").addClass("disabled");
+
+                    if (this.currentPage == 0)
+                        $(".pagination .nav.prev").addClass("disabled");
+                    this.showItems();
+                },
+                showItems: function() {
+                    this.items.hide();
+                    var base = this.perPage * this.currentPage;
+                    this.items.slice(base, base + this.perPage).show();
+
+                    this.updateNavigation();
+                },
+                init: function(container, items, perPage) {
+                    this.container = container;
+                    this.currentPage = 0;
+                    this.totalPages = 1;
+                    this.perPage = perPage;
+                    this.items = items;
+                    this.createNavigation();
+                    this.showItems();
+                }
+            };
+
+            // stuff it all into a jQuery method!
+            $.fn.pagify = function(perPage, itemSelector) {
+                var el = $(this);
+                var items = $(itemSelector, el);
+
+                // default perPage to 5
+                if (isNaN(perPage) || perPage === undefined) {
+                    perPage = 3;
+                }
+
+                // don't fire if fewer items than perPage
+                if (items.length <= perPage) {
+                    return true;
+                }
+
+                pagify.init(el, items, perPage);
+            };
+        })(jQuery);
+
+        $(".container").pagify(6, ".single-item");
+
+    </script>
+
+</body>
+
+</html>
