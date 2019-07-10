@@ -1,0 +1,58 @@
+
+
+<link media="all" type="text/css" rel="stylesheet" href="https://harvesthq.github.io/chosen/chosen.css">
+
+<form>
+    <div id="container">
+        <div id="content">
+            <div class="side-by-side clearfix">
+                <select data-placeholder="Choose a Country..." id="1" class="chosen-select-deselect" tabindex="1">
+                    <option value=""></option>
+                    <option value="United States">United States</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="Afghanistan">Afghanistan</option>
+                    <option value="Aland Islands">Aland Islands</option>
+                    <option value="Albania">Albania</option>
+                    <option value="Algeria">Algeria</option>
+                </select>
+                <select data-placeholder="Choose a Country..." id="2" class="chosen-select-deselect" tabindex="2">
+                    <option value=""></option>
+                    <option value="United States">United States</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="Afghanistan">Afghanistan</option>
+                    <option value="Aland Islands">Aland Islands</option>
+                    <option value="Albania">Albania</option>
+                    <option value="Algeria">Algeria</option>
+                </select>
+                
+            </div>
+        </div>
+    </div>
+    <script src="https://harvesthq.github.io/chosen/docsupport/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="https://harvesthq.github.io/chosen/chosen.jquery.js" type="text/javascript"></script>
+    <script src="https://harvesthq.github.io/chosen/docsupport/prism.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://harvesthq.github.io/chosen/docsupport/init.js" type="text/javascript" charset="utf-8"></script>
+</form>
+<script>
+    var selected = [];
+    $.each($('.chosen-select-deselect'), function() {
+        selected[$(this).attr('id')] = '';
+    });
+
+    $('.chosen-select-deselect').change(function() {
+        var value = $(this).val();
+        if (selected[$(this).attr('id')] !== '') {
+            var oldValue = selected[$(this).attr('id')];
+            $(this).siblings('.chosen-select-deselect').addBack().children('option').each(function() {
+                if ($(this).val() === oldValue)
+                    $(this).removeAttr('disabled').trigger('chosen:updated');
+            });
+        }
+        selected[$(this).attr('id')] = value;
+        $(this).siblings('.chosen-select-deselect').addBack().children('option').each(function() {
+            if ($(this).val() === value)
+                $(this).attr('disabled', true).trigger('chosen:updated');
+        });
+    });
+
+</script>
