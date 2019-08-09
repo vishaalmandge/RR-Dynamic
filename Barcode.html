@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.9.0/JsBarcode.all.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <p>
+            <label>AWB no</label>
+            <input type="text" id="awbno">
+        </p>
+        <p>
+            <lable>Enter no of boxes</lable>
+            <input type="text" id="noofbox" placeholder="Enter no of boxes">
+            <button id="btnOK">OK</button>
+        </p>
+        <img id="barcode2" />
+        <div class="barCodeHolder" id="barcodediv"></div>
+        <script>
+            function random() {
+                /*return Math.floor(Math.random() * 10000000);*/
+                var text = "";
+                var possible = "0123456789";
+                for (var i = 0; i < 16; i++)
+                    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+                return text;
+            }
+            $(document).ready(function() {
+                $('#awbno').val(random());
+                JsBarcode("#barcode2", $("#awbno").val(), {
+                    format: "CODE128",
+                    displayValue: true,
+                    fontSize: 14,
+                    lineColor: "#666666",
+                    width: 2,
+                    background: "#fcfcfc",
+                    marginLeft: 15,
+                    marginRight: 15,
+                });
+
+                $("#btnOK").click(function(e) {
+                    //alert('Hi');
+                    var no = $('#noofbox').val();
+                    var code = $("#awbno").val();
+                    $(".barCodeHolder img,.barCodeHolder img").remove();
+                    for (var i = 0; i < no; i++) {
+                        $(".barCodeHolder").append('<div><img class="barcode"  jsbarcode-format="CODE128"  jsbarcode-value="' + code + '-' + (i + 1) + '(' + no + ')' + '"  jsbarcode-width="2" jsbarcode-fontSize="14"  jsbarcode-lineColor="#666666" jsbarcode-background="#fcfcfc" jsbarcode-marginLeft="15" jsbarcode-marginRight="15"></img></div>');
+                    }
+                    JsBarcode(".barcode").init();
+                });
+            });
+
+        </script>
+    </div>
+
+    <!--<div>
+		<img id="barcode3"/>
+		<script>JsBarcode("#barcode3", "9780199532179", {
+			format:"EAN13",
+			displayValue:true,
+			fontSize:20
+		});</script>
+	</div>
+
+	<div>
+		<img id="barcode4"/>
+		<script>
+			var repeat4 = function(){
+				var date = new Date();
+				JsBarcode("#barcode4",
+						date.getHours().zeroPadding() + ":" +
+						date.getMinutes().zeroPadding() + ":" +
+						date.getSeconds().zeroPadding(),
+					{displayValue: true});
+			};
+			setInterval(repeat4,1000);
+			repeat4();
+		</script>
+	</div>
+
+	<div>
+		<img id="barcode5"/>
+		<script>
+			var repeat5 = function(){
+				JsBarcode("#barcode5", Math.floor(1000000+Math.random()*9000000)+"",{displayValue:true,fontSize:20});
+			};
+			setInterval(repeat5,500);
+			repeat5();
+		</script>
+	</div>-->
+</body>
+
+</html>
