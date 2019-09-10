@@ -1,0 +1,102 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://harvesthq.github.io/chosen/chosen.css" />
+<style>
+    .chosen-select-deselect {
+        width: 100%;
+    }
+
+</style>
+<form>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <select data-placeholder="Choose a Country..." id="1" class="chosen-select-deselect disabled-select" tabindex="1">
+                    <option value=""></option>
+                    <option value="United States">United States</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="Afghanistan">Afghanistan</option>
+                    <option value="Aland Islands">Aland Islands</option>
+                    <option value="Albania">Albania</option>
+                    <option value="Algeria">Algeria</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select data-placeholder="Choose a Country..." id="1" class="chosen-select-deselect disabled-select" tabindex="1">
+                    <option value=""></option>
+                    <option value="United States">United States</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="Afghanistan">Afghanistan</option>
+                    <option value="Aland Islands">Aland Islands</option>
+                    <option value="Albania">Albania</option>
+                    <option value="Algeria">Algeria</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select data-placeholder="Choose a Country..." id="1" class="chosen-select-deselect disabled-select" tabindex="1">
+                    <option value=""></option>
+                    <option value="United States">United States</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="Afghanistan">Afghanistan</option>
+                    <option value="Aland Islands">Aland Islands</option>
+                    <option value="Albania">Albania</option>
+                    <option value="Algeria">Algeria</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <select data-placeholder="Choose a Country..." id="1" class="chosen-select-deselect disabled-select" tabindex="1">
+                    <option value=""></option>
+                    <option value="United States">United States</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="Afghanistan">Afghanistan</option>
+                    <option value="Aland Islands">Aland Islands</option>
+                    <option value="Albania">Albania</option>
+                    <option value="Algeria">Algeria</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select data-placeholder="Choose a Country..." id="1" class="chosen-select-deselect disabled-select" tabindex="1">
+                    <option value=""></option>
+                    <option value="United States">United States</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="Afghanistan">Afghanistan</option>
+                    <option value="Aland Islands">Aland Islands</option>
+                    <option value="Albania">Albania</option>
+                    <option value="Algeria">Algeria</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select data-placeholder="Choose a Country..." id="1" class="chosen-select-deselect disabled-select" tabindex="1">
+                    <option value=""></option>
+                    <option value="United States">United States</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="Afghanistan">Afghanistan</option>
+                    <option value="Aland Islands">Aland Islands</option>
+                    <option value="Albania">Albania</option>
+                    <option value="Algeria">Algeria</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://harvesthq.github.io/chosen/docsupport/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="https://harvesthq.github.io/chosen/chosen.jquery.js" type="text/javascript"></script>
+    <script src="https://harvesthq.github.io/chosen/docsupport/prism.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://harvesthq.github.io/chosen/docsupport/init.js" type="text/javascript" charset="utf-8"></script>
+</form>
+<script>
+/*----------------working code--------------------*/
+    $('.disabled-select').on('change', function(evt, params) {
+        $('option').prop('disabled', false);
+        $('.disabled-select').each(function() {
+            var val = this.value;
+            $('.disabled-select').not(this).find('option').filter(function() {
+                return this.value === val;
+            }).prop('disabled', true);
+        });
+        $('.disabled-select').chosen().trigger("chosen:updated");
+    });
+
+</script>
