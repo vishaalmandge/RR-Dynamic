@@ -45,38 +45,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4">
-                <select data-placeholder="Choose a Country..." id="1" class="chosen-select-deselect disabled-select" tabindex="1">
-                    <option value=""></option>
-                    <option value="United States">United States</option>
-                    <option value="United Kingdom">United Kingdom</option>
-                    <option value="Afghanistan">Afghanistan</option>
-                    <option value="Aland Islands">Aland Islands</option>
-                    <option value="Albania">Albania</option>
-                    <option value="Algeria">Algeria</option>
-                </select>
-            </div>
-            <div class="col-md-4">
-                <select data-placeholder="Choose a Country..." id="1" class="chosen-select-deselect disabled-select" tabindex="1">
-                    <option value=""></option>
-                    <option value="United States">United States</option>
-                    <option value="United Kingdom">United Kingdom</option>
-                    <option value="Afghanistan">Afghanistan</option>
-                    <option value="Aland Islands">Aland Islands</option>
-                    <option value="Albania">Albania</option>
-                    <option value="Algeria">Algeria</option>
-                </select>
-            </div>
-            <div class="col-md-4">
-                <select data-placeholder="Choose a Country..." id="1" class="chosen-select-deselect disabled-select" tabindex="1">
-                    <option value=""></option>
-                    <option value="United States">United States</option>
-                    <option value="United Kingdom">United Kingdom</option>
-                    <option value="Afghanistan">Afghanistan</option>
-                    <option value="Aland Islands">Aland Islands</option>
-                    <option value="Albania">Albania</option>
-                    <option value="Algeria">Algeria</option>
-                </select>
+            <div class="col-md-12">
+                <a href="javascript:void(0);" class="addRow">Add more</a>
             </div>
         </div>
     </div>
@@ -85,18 +55,97 @@
     <script src="https://harvesthq.github.io/chosen/chosen.jquery.js" type="text/javascript"></script>
     <script src="https://harvesthq.github.io/chosen/docsupport/prism.js" type="text/javascript" charset="utf-8"></script>
     <script src="https://harvesthq.github.io/chosen/docsupport/init.js" type="text/javascript" charset="utf-8"></script>
+    
+    
 </form>
-<script>
+
 /*----------------working code--------------------*/
-    $('.disabled-select').on('change', function(evt, params) {
-        $('option').prop('disabled', false);
-        $('.disabled-select').each(function() {
-            var val = this.value;
-            $('.disabled-select').not(this).find('option').filter(function() {
-                return this.value === val;
-            }).prop('disabled', true);
-        });
-        $('.disabled-select').chosen().trigger("chosen:updated");
-    });
+<script>
+    
+var selected = [];
+
+triggerOnChangeDef();
+
+function triggerOnChangeDef() {
+  $('.disabled-select').on('change', function(event, params) {
+    if (typeof params != 'undefined') {
+      $(this).data('selected', params.selected);
+      $('option').prop('disabled', false);
+      $('.disabled-select').each(function() {
+        var val = this.value;
+        if (val != "" && selected.indexOf(val) == -1)
+          selected.push(val);
+        $('.disabled-select').not(this).find('option').filter(function() {
+          return selected.indexOf(this.value) > -1;
+        }).prop('disabled', true);
+      });
+      $('.disabled-select').chosen().trigger("chosen:updated");
+    } else {
+      var data = $(this).data("selected");
+      if (data) {
+        selected.splice(selected.indexOf(data), 1);
+        disableOptions();
+        $(this).data("selected", null);
+      }
+    }
+  });
+}
+
+function disableOptions() {
+  $('option').prop('disabled', false);
+  $('.disabled-select').each(function() {
+    $('.disabled-select').not(this).find('option').filter(function() {
+      return selected.indexOf(this.value) > -1;
+    }).prop('disabled', true);
+  });
+  $('.disabled-select').chosen().trigger("chosen:updated");
+}
+
+var addMRow = '<div class="row">' +
+  '            <div class="col-md-4">' +
+  '                <select data-placeholder="Choose a Country..." id="1" class="chosen-select-deselect disabled-select" tabindex="1">' +
+  '                    <option value=""></option>' +
+  '                    <option value="United States">United States</option>' +
+  '                    <option value="United Kingdom">United Kingdom</option>' +
+  '                    <option value="Afghanistan">Afghanistan</option>' +
+  '                    <option value="Aland Islands">Aland Islands</option>' +
+  '                    <option value="Albania">Albania</option>' +
+  '                    <option value="Algeria">Algeria</option>' +
+  '                </select>' +
+  '            </div>' +
+  '            <div class="col-md-4">' +
+  '                <select data-placeholder="Choose a Country..." id="1" class="chosen-select-deselect disabled-select" tabindex="1">' +
+  '                    <option value=""></option>' +
+  '                    <option value="United States">United States</option>' +
+  '                    <option value="United Kingdom">United Kingdom</option>' +
+  '                    <option value="Afghanistan">Afghanistan</option>' +
+  '                    <option value="Aland Islands">Aland Islands</option>' +
+  '                    <option value="Albania">Albania</option>' +
+  '                    <option value="Algeria">Algeria</option>' +
+  '                </select>' +
+  '            </div>' +
+  '            <div class="col-md-4">' +
+  '                <select data-placeholder="Choose a Country..." id="1" class="chosen-select-deselect disabled-select" tabindex="1">' +
+  '                    <option value=""></option>' +
+  '                    <option value="United States">United States</option>' +
+  '                    <option value="United Kingdom">United Kingdom</option>' +
+  '                    <option value="Afghanistan">Afghanistan</option>' +
+  '                    <option value="Aland Islands">Aland Islands</option>' +
+  '                    <option value="Albania">Albania</option>' +
+  '                    <option value="Algeria">Algeria</option>' +
+  '                </select>' +
+  '            </div>' +
+  '        </div>';
+
+
+
+$('.addRow').click(function() {
+  $(this).after(addMRow);
+  $('.chosen-select-deselect').chosen({
+    allow_single_deselect: true
+  });
+  disableOptions();
+  triggerOnChangeDef();
+});
 
 </script>
